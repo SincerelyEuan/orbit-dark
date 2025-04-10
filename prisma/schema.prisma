@@ -58,7 +58,6 @@ model user {
   Ally              Ally[]
   roles             role[]
   allyVisits		allyVisit[]
-  registered		Boolean?
 }
 
 model userInfo {

@@ -13,7 +13,6 @@ type User = {
 	canMakeWorkspace: boolean
 	displayname: string
 	thumbnail: string
-	registered: boolean
 }
 
 type Data = {
@@ -47,8 +46,7 @@ export async function handler(
 		username: await getUsername(req.session.userid),
 		displayname: await getDisplayName(req.session.userid),
 		canMakeWorkspace: dbuser?.isOwner || false,
-		thumbnail: await getThumbnail(req.session.userid),
-		registered: dbuser?.registered || false
+		thumbnail: await getThumbnail(req.session.userid)
 	}
 	const tovyuser = await prisma.user.findUnique({
 		where: {
@@ -78,7 +76,6 @@ export async function handler(
 		data: {
 			picture: await getThumbnail(req.session.userid),
 			username: await getUsername(req.session.userid),
-			registered: true
 		}
 	});
 }

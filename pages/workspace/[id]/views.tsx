@@ -46,7 +46,6 @@ type User = {
 	idleMinutes: number
 	hostedSessions: any,
 	messages: number
-	registered: boolean;
 }
 
 export const getServerSideProps = withPermissionCheckSsr(async ({ params }: GetServerSidePropsContext) => {
@@ -130,7 +129,6 @@ export const getServerSideProps = withPermissionCheckSsr(async ({ params }: GetS
 			idleMinutes: ims.length ? Math.round(ims.reduce((p, c) => p + c)) : 0,
 			hostedSessions: sh,
 			messages: messages.length ? Math.round(messages.reduce((p, c) => p + c)) : 0,
-			registered: user.registered || false
 		})
 	}
 
@@ -165,7 +163,6 @@ export const getServerSideProps = withPermissionCheckSsr(async ({ params }: GetS
 			idleMinutes: 0,
 			hostedSessions: [],
 			messages: messages.length ? Math.round(messages.reduce((p, c) => p + c)) : 0,
-			registered: x.user.registered || false
 		})
 	})
 
@@ -224,9 +221,6 @@ const filters: {
 		'equal',
 		'greaterThan',
 		'lessThan'
-	],
-	registered: [
-		'equal'
 	]
 }
 
@@ -383,20 +377,11 @@ const Views: pageWithLayout<pageProps> = ({ usersInGroup, ranks }) => {
 				);
 			}
 		}),
-		columnHelper.accessor("registered", {
-			header: 'Registered',
-			cell: (row) => {
-				return (
-					<p>{row.getValue() ? "✅" : "❌"}</p>
-				);
-			}
-		}),
 	];
 
 	const [columnVisibility, setColumnVisibility] = useState({
 		inactivityNotices: false,
 		idleMinutes: false,
-		registered: false
 	});
 
 	const table = useReactTable({
@@ -569,13 +554,6 @@ const Views: pageWithLayout<pageProps> = ({ usersInGroup, ranks }) => {
 							valid = false;
 						}
 					}
-				} else if (filter.column === 'registered') {
-					if (!filter.value) return;
-					if (filter.filter === 'equal') {
-						if (user.registered.toString() !== filter.value.toLowerCase()) {
-							valid = false;
-						}
-					}
 				}
 			});
 			return valid;
@@ -657,8 +635,6 @@ const Views: pageWithLayout<pageProps> = ({ usersInGroup, ranks }) => {
 			return "Idle minutes"
 		} else if (columnId == "messages") {
 			return "Messages"
-		} else if (columnId == "registered") {
-			return "Registered"
 		}
  	}
 
@@ -1112,21 +1088,6 @@ const Filter: React.FC<{
 							{ranks.map((rank) => (
 								<option value={rank.rank} key={rank.id}>{rank.name}</option>
 							))}
-						</select>
-					</div>
-				)}
-				
-				{getValues('col') === 'registered' && (
-					<div className="space-y-2">
-						<label className="block text-sm font-medium text-gray-700">
-							Value
-						</label>
-						<select
-							{...register('value')}
-							className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
-						>
-							<option value="true">✅</option>
-							<option value="false">❌</option>
 						</select>
 					</div>
 				)}
