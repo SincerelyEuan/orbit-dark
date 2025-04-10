@@ -88,11 +88,10 @@ export async function handler(
 			});
 		}
 
-		if (!user) {
-			return res.status(500).json({ 
-				success: false, 
-				error: 'An error occurred while accessing the database. Please try again later.' 
-			});
+	
+
+		if(!user) {
+			return res.status(401).json({ success: false, error: 'Invalid username or password' })
 		}
 
 		if (!user.info?.passwordhash) {

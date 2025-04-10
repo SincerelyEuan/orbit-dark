@@ -22,14 +22,14 @@ export default function StickyNoteAnnouncement() {
   return (
     <div className="z-0 bg-gray-200 dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-start space-x-4 mb-6 relative">
       <img
-        src="/favicon-32x32.png"
-        alt="Orbit"
+        src="https://t4.rbxcdn.com/30DAY-AvatarHeadshot-2EDDE5C624B6436CDD00A2A60A3DF1E3-Png"
+        alt="MeIlowVibes"
         className="w-10 h-10 rounded-full bg-primary flex-shrink-0"
       />
       <div>
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 flex items-center gap-1">
           <IconPin className="w-4 h-4 text-gray-500 dark:text-gray-300" />
-          Planetary
+          Pinned by MeIlowVibes
         </h3>
 
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-0"> </p>

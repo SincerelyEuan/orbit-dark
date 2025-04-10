@@ -106,8 +106,24 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
       {!loading ? (
         <Layout>
+        <>
+          {/* ✅ Global Maintenance Banner */}
+          <div className="bg-yellow-100 text-yellow-900 dark:bg-yellow-200 dark:text-yellow-900 px-4 py-3 border-b border-yellow-300 text-sm font-medium">
+            ⚠️ <strong>Incident Investigation:</strong> We're investigating a reported issue with User API and Workspaces. See updates at{" "}
+            <a
+              href="https://status.myhrhub.org/status/orbit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-yellow-700"
+            >
+              status.myhrhub.org
+            </a>
+          </div>
+      
           <Component {...pageProps} />
-        </Layout>
+        </>
+      </Layout>
+      
       ) : (
         <div className="flex h-screen dark:bg-gray-900">
           <svg
